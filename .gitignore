@@ -1,0 +1,7 @@
+masaa/node_modules/
+mserver/node_modules/
+masaa/dist/
+mserver/dist/
+masaa/.env/
+mserver/.env/
+masaa/.next/
