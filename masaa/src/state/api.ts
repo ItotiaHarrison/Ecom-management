@@ -4,8 +4,13 @@ export interface Product {
     productId: string;
     name: string;
     price: number;
-    rating?: number;
     stockQuantity: number;
+    rating?: number;
+    imageUrl: string; 
+    categories: {
+        categoryId: string;
+        name: string;
+    };
 };
 
 export interface NewProduct {

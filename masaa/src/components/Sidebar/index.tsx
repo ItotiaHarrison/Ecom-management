@@ -10,6 +10,7 @@ import {
   LucideIcon,
   Menu,
   SlidersHorizontal,
+  Tags,
   User,
 } from "lucide-react";
 import Link from "next/link";
@@ -113,6 +114,12 @@ const Sidebar = () => {
           href="/products"
           icon={Clipboard}
           label="Products"
+          isCollapsed={isSidebarCollapsed}
+        />
+        <SidebarLink
+          href="/productCategories"  
+          icon={Tags}
+          label="Product Categories"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink

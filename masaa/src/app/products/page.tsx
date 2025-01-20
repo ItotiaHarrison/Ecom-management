@@ -6,12 +6,18 @@ import { useCreateProductMutation, useGetProductsQuery } from "@/state/api";
 import { PlusCircleIcon, SearchIcon } from "lucide-react";
 import { useState } from "react";
 import CreateProductModal from "./CreateProductModal";
+import Image from "next/image";
 
 type ProductFormData = {
   name: string;
   price: number;
   stockQuantity: number;
-  rating: number;
+  rating?: number;
+  imageUrl: string; // This is the Cloudinary URL
+  categories: {
+    categoryId: string;
+    name: string;
+  };
 };
 
 const Products = () => {
@@ -70,32 +76,39 @@ const Products = () => {
 
       {/* BODY PRODUCT LIST */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-between">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          products?.map((product) => (
-            <div
-              key={product.productId}
-              className="border shadow rounded-md p-4 max-w-full w-full mx-auto"
-            >
-              <div className="flex flex-col items-center">
-                img
-                <h3 className="text-lg text-gray-900 font-semibold">
-                  {product.name}
-                </h3>
-                <p className="text-gray-600">${product.price.toFixed(2)}</p>
-                <div className="text-sm text-gray-600 mt-1">
-                  Stock: {product.stockQuantity}
-                </div>
-                {product.rating && (
-                  <div className="flex items-center mt-2">
-                    <Rating rating={product.rating} />
-                  </div>
+        {products?.map((product) => (
+          <div
+            key={product.productId}
+            className="border shadow rounded-md p-4 max-w-full w-full mx-auto"
+          >
+            <div className="flex flex-col items-center">
+              <div className="relative w-full h-48 mb-4">
+                {product.imageUrl && (
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.name}
+                    fill
+                    className="object-contain rounded-md"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
+                  />
                 )}
               </div>
+              <h3 className="text-lg text-gray-900 font-semibold">
+                {product.name}
+              </h3>
+              <p className="text-gray-600">${product.price.toFixed(2)}</p>
+              <div className="text-sm text-gray-600 mt-1">
+                Stock: {product.stockQuantity}
+              </div>
+              {product.rating && (
+                <div className="flex items-center mt-2">
+                  <Rating rating={product.rating} />
+                </div>
+              )}
             </div>
-          ))
-        )}
+          </div>
+        ))}
       </div>
 
       {/* MODAL */}

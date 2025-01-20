@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import path from 'path';
 
 // ROUTE IMPORTS
 import dashboardRoutes from "./routes/dashboardRoutes";
@@ -27,6 +28,7 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/products", productRoutes);
 app.use("/users", userRoutes);
 app.use("/expenses", expenseRoutes);
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 // SERVER
 const port = Number(process.env.PORT) || 3001;
